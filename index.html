@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ─── SEO ─── -->
+  <title>SortPilot Beta — Real-Time Shopify Collection Sorting | Join the Waitlist</title>
+  <meta name="description" content="SortPilot pushes out-of-stock products to the bottom of your Shopify collections in under 90 seconds — automatically, with verifiable proof. Join the beta for 6 months free Pro access." />
+  <meta name="keywords" content="Shopify collection sorting, real-time inventory sorting, Shopify app beta, out of stock products, merchandising automation, Shopify OOS sorting" />
+  <meta name="author" content="Tech Fortress Solutions" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://sortpilot.app" />
+
+  <!-- ─── Open Graph ─── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sortpilot.app" />
+  <meta property="og:title" content="SortPilot — Real-Time Shopify Collection Sorting" />
+  <meta property="og:description" content="Every other sort app processes inventory on a schedule. SortPilot uses webhooks and fires the moment a variant hits zero — in under 90 seconds. Join the beta." />
+  <meta property="og:image" content="https://sortpilot.app/og-image.png" />
+
+  <!-- ─── Twitter Card ─── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SortPilot Beta — Real-Time Shopify Sorting" />
+  <meta name="twitter:description" content="Join 20 merchants getting 6 months free Pro access to test SortPilot — webhook-driven collection sorting with verifiable proof." />
+
+  <!-- ─── Structured Data ─── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SortPilot",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Real-time Shopify collection merchandising that pushes out-of-stock products to the bottom in under 90 seconds using webhook architecture.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "6 months free Pro access for beta testers"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tech Fortress Solutions"
+    }
+  }
+  </script>
+
+  <!-- ─── Fonts ─── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: #1B2A4A;
+      background: #f9f8f6;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── CSS VARIABLES ─── */
+    :root {
+      --navy:    #1B2A4A;
+      --teal:    #0D6B74;
+      --teal-lt: #E1F5EE;
+      --orange:  #E8680A;
+      --orange-lt: #FEF0E6;
+      --amber:   #B45309;
+      --amber-lt: #FFFBEB;
+      --green:   #166534;
+      --green-lt: #DCFCE7;
+      --red:     #991B1B;
+      --red-lt:  #FEE2E2;
+      --gray-50: #f9f8f6;
+      --gray-100: #F1EFE8;
+      --gray-200: #E3E1D8;
+      --gray-400: #9A9890;
+      --gray-600: #5F5E5A;
+      --white:   #FFFFFF;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-card: 0 2px 12px rgba(27,42,74,0.08), 0 1px 3px rgba(27,42,74,0.06);
+      --shadow-button: 0 4px 16px rgba(232,104,10,0.35);
+    }
+
+    /* ─── UTILITY ─── */
+    .container { width: 100%; max-width: 680px; margin: 0 auto; padding: 0 20px; }
+    .container--wide { max-width: 960px; }
+    .text-center { text-align: center; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav__logo-img { height: 32px; width: auto; }
+    .nav__logo-text {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+    .nav__logo-text span { color: var(--orange); }
+    .nav__badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--orange-lt);
+      color: var(--orange);
+      border: 1px solid rgba(232,104,10,0.2);
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.03em;
+    }
+    .nav__cta {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--teal);
+      border-bottom: 1.5px solid currentColor;
+      transition: opacity 0.15s;
+    }
+    .nav__cta:hover { opacity: 0.7; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      padding: 64px 0 72px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 80% 20%, rgba(13,107,116,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 10% 90%, rgba(232,104,10,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero__grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero__content { text-align: center; }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: rgba(232,104,10,0.12);
+      border: 1px solid rgba(232,104,10,0.25);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero__eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    .hero__h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 7vw, 3.25rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero__h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .hero__sub {
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: rgba(255,255,255,0.72);
+      max-width: 540px;
+      margin: 0 auto 32px;
+      line-height: 1.65;
+    }
+    .hero__cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-button);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .btn-primary:hover {
+      background: #d55e09;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(232,104,10,0.4);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .hero__nudge {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+    }
+    .hero__mascot {
+      width: 160px;
+      max-width: 40vw;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--teal);
+      padding: 20px 0;
+    }
+    .stats-bar__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .stat-item__value {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-item__label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      font-weight: 500;
+    }
+    .stat-divider {
+      display: none;
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* ─── SECTION BASE ─── */
+    .section { padding: 64px 0; }
+    .section--alt { background: var(--white); }
+    .section__label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .section__h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.5rem, 5vw, 2.25rem);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section__lead {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* ─── PROBLEM ─── */
+    .problem { background: var(--white); }
+    .problem__timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 40px;
+      position: relative;
+    }
+    .problem__timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: var(--gray-200);
+    }
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px 0;
+      position: relative;
+    }
+    .timeline-item__dot {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-item__dot--bad { background: var(--red-lt); }
+    .timeline-item__dot--ok  { background: var(--amber-lt); }
+    .timeline-item__dot--good { background: var(--green-lt); }
+    .timeline-item__body {}
+    .timeline-item__time {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .timeline-item__time--bad { color: var(--red); }
+    .timeline-item__time--ok  { color: var(--amber); }
+    .timeline-item__time--good { color: var(--green); }
+    .timeline-item__title {
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .timeline-item__desc { font-size: 0.9rem; color: var(--gray-600); }
+
+    /* ─── FEATURES ─── */
+    .features {}
+    .features__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(27,42,74,0.12);
+    }
+    .feature-card--accent { border-top: 3px solid var(--teal); }
+    .feature-card--accent2 { border-top: 3px solid var(--orange); }
+    .feature-card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .feature-card__icon--teal { background: var(--teal-lt); }
+    .feature-card__icon--orange { background: var(--orange-lt); }
+    .feature-card__icon--navy { background: rgba(27,42,74,0.08); }
+    .feature-card__h3 {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .feature-card__p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.65; }
+    .feature-card__badge {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .badge--teal { background: var(--teal-lt); color: #085041; }
+    .badge--orange { background: var(--orange-lt); color: #7C3D0A; }
+    .badge--navy { background: rgba(27,42,74,0.08); color: var(--navy); }
+
+    /* ─── SYNC LOG DEMO ─── */
+    .log-demo {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-top: 40px;
+      font-family: 'DM Mono', 'Courier New', monospace;
+      overflow: hidden;
+    }
+    .log-demo__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .log-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .log-dot--red { background: #FF5F57; }
+    .log-dot--yellow { background: #FFBD2E; }
+    .log-dot--green { background: #28CA41; }
+    .log-demo__title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-left: 4px;
+    }
+    .log-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+    .log-row:last-child { border-bottom: none; }
+    .log-row__time { color: rgba(255,255,255,0.35); flex-shrink: 0; width: 70px; }
+    .log-row__event { color: rgba(255,255,255,0.8); flex: 1; }
+    .log-row__event strong { color: #fff; }
+    .log-row__status {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .log-row__latency { color: rgba(255,255,255,0.35); font-size: 0.7rem; flex-shrink: 0; }
+    .status--ok { background: rgba(22,101,52,0.5); color: #6EE7B7; }
+    .status--skip { background: rgba(30,58,138,0.4); color: #93C5FD; }
+
+    /* ─── QUALIFY ─── */
+    .qualify { background: var(--white); }
+    .qualify__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 36px;
+    }
+    .qualify-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+    }
+    .qualify-item--yes { border-color: rgba(22,101,52,0.25); background: var(--green-lt); }
+    .qualify-item--no  { border-color: rgba(153,27,27,0.2); background: var(--red-lt); }
+    .qualify-item__icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .qualify-item__text { font-size: 0.82rem; line-height: 1.5; }
+    .qualify-item--yes .qualify-item__text { color: var(--green); font-weight: 500; }
+    .qualify-item--no .qualify-item__text  { color: var(--red); }
+
+    /* ─── DEAL ─── */
+    .deal { }
+    .deal__cols {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .deal__col {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .deal__col-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .deal__col-icon {
+      width: 38px; height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .deal__col-icon--get { background: var(--teal-lt); }
+    .deal__col-icon--give { background: var(--orange-lt); }
+    .deal__col-title {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+    .deal__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .deal__list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+    .deal__list li::before {
+      content: '';
+      flex-shrink: 0;
+      margin-top: 6px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .deal__col--get .deal__list li::before { background: var(--teal); }
+    .deal__col--give .deal__list li::before { background: var(--orange); }
+    .deal__list strong { color: var(--navy); font-weight: 600; }
+
+    /* ─── FORM SECTION ─── */
+    .form-section {
+      background: var(--navy);
+      padding: 64px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(13,107,116,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .form-section .section__label { color: rgba(255,255,255,0.5); }
+    .form-section .section__h2 { color: var(--white); }
+    .form-section .section__lead { color: rgba(255,255,255,0.6); }
+    .form-box {
+      margin-top: 40px;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 36px 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    .form-box__spots {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange-lt);
+      border: 1px solid rgba(232,104,10,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 24px;
+    }
+    .form-box__spots-indicator {
+      display: flex;
+      gap: 3px;
+    }
+    .spot-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+    .spot-dot--empty {
+      background: transparent;
+      border: 1px solid var(--orange);
+      opacity: 0.4;
+    }
+    .form-box__title {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+    .form-box__subtitle { font-size: 0.88rem; color: var(--gray-600); margin-bottom: 28px; }
+
+    /* FORM ELEMENTS */
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .form-label span { color: var(--red); }
+    .form-input,
+    .form-select {
+      width: 100%;
+      height: 46px;
+      padding: 0 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--navy);
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder { color: var(--gray-400); }
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,107,116,0.12);
+      background: var(--white);
+    }
+    .form-select-wrap {
+      position: relative;
+    }
+    .form-select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--gray-400);
+      pointer-events: none;
+    }
+    .form-hint { font-size: 0.75rem; color: var(--gray-400); margin-top: 5px; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .form-checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 18px; }
+    .form-checkbox {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: var(--teal);
+    }
+    .form-checkbox-label { font-size: 0.82rem; color: var(--gray-600); line-height: 1.5; }
+    .form-checkbox-label a { color: var(--teal); border-bottom: 1px solid rgba(13,107,116,0.3); }
+    .form-submit {
+      width: 100%;
+      height: 52px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: var(--shadow-button);
+      transition: background 0.15s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .form-submit:hover { background: #d55e09; transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-submit svg { flex-shrink: 0; }
+    .form-privacy {
+      text-align: center;
+      font-size: 0.74rem;
+      color: var(--gray-400);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    /* SUCCESS / ERROR STATES */
+    .form-message {
+      display: none;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-top: 16px;
+      text-align: center;
+    }
+    .form-message--success {
+      background: var(--green-lt);
+      color: var(--green);
+      border: 1px solid rgba(22,101,52,0.2);
+    }
+    .form-message--error {
+      background: var(--red-lt);
+      color: var(--red);
+      border: 1px solid rgba(153,27,27,0.2);
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 36px 0;
+      text-align: center;
+    }
+    .footer__logo {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 8px;
+    }
+    .footer__logo span { color: var(--orange); }
+    .footer__by {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+    .footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .footer__links a {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.15s;
+    }
+    .footer__links a:hover { color: rgba(255,255,255,0.8); }
+    .footer__copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE: TABLET ─── */
+    @media (min-width: 580px) {
+      .stats-bar__inner {
+        flex-direction: row;
+        justify-content: center;
+        gap: 40px;
+      }
+      .stat-divider { display: block; }
+      .features__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .deal__cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ─── RESPONSIVE: DESKTOP ─── */
+    @media (min-width: 768px) {
+      .hero { padding: 96px 0 104px; }
+      .hero__grid {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        gap: 60px;
+      }
+      .hero__content { flex: 1; text-align: left; }
+      .hero__sub { margin-left: 0; }
+      .hero__cta-group { align-items: flex-start; }
+      .hero__eyebrow { display: inline-flex; }
+      .hero__mascot { width: 240px; }
+      .features__grid { grid-template-columns: repeat(3, 1fr); }
+      .qualify__grid { grid-template-columns: repeat(2, 1fr); }
+      .form-box { padding: 48px 44px; }
+    }
+
+    @media (min-width: 960px) {
+      .qualify__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* ─── SPINNER ─── */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-submit.loading .spinner { display: block; }
+    .form-submit.loading .submit-text { display: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─────────────── NAV ─────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo" aria-label="SortPilot home">
+        <img
+          src="SortPilot logo with cheerful robot mascot.png"
+          alt="SortPilot"
+          class="nav__logo-img"
+          onerror="this.style.display='none'"
+        />
+        <span class="nav__logo-text">sort<span>Pilot</span></span>
+      </a>
+      <span class="nav__badge">Beta · 20 Spots</span>
+      <a href="#signup" class="nav__cta" aria-label="Apply for beta access">Apply now →</a>
+    </div>
+  </nav>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <header class="hero" role="banner">
+    <div class="container container--wide">
+      <div class="hero__grid">
+
+        <div class="hero__content">
+          <p class="hero__eyebrow" aria-label="Currently recruiting beta testers">
+            <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+            Recruiting beta testers · Limited spots
+          </p>
+          <h1 class="hero__h1">
+            Each collection,<br/>
+            sorted its own way.<br/>
+            <em>In real time.</em>
+          </h1>
+          <p class="hero__sub">
+            SortPilot detects inventory changes the moment they happen and reorders your
+            Shopify collections in under 90 seconds — automatically, with a timestamped
+            log proving every action it took.
+          </p>
+          <div class="hero__cta-group">
+            <a href="#signup" class="btn-primary">
+              Apply for free beta access
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <span class="hero__nudge">6 months free Pro access · No credit card · 20 spots only</span>
+          </div>
+        </div>
+
+        <img
+          class="hero__mascot"
+          src="SortPilot logo with cheerful robot mascot.png"
+          alt="SortPilot robot mascot flying upward on a rocket"
+          aria-hidden="false"
+        />
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────────── STATS ─────────────── -->
+  <section class="stats-bar" aria-label="Key stats">
+    <div class="container container--wide">
+      <div class="stats-bar__inner">
+        <div class="stat-item">
+          <span class="stat-item__value">&lt; 90s</span>
+          <span class="stat-item__label">OOS push to bottom</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-item__value">100%</span>
+          <span class="stat-item__label">per-collection independence</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-item__value">14-day</span>
+          <span class="stat-item__label">free trial on public launch</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-item__value">20</span>
+          <span class="stat-item__label">beta spots available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── PROBLEM ─────────────── -->
+  <section class="section problem" aria-labelledby="problem-heading">
+    <div class="container">
+      <p class="section__label">The problem</p>
+      <h2 class="section__h2" id="problem-heading">
+        Your OOS product is still at position #1.
+        Right now.
+      </h2>
+      <p class="section__lead">
+        A variant sold out an hour ago. Without real-time inventory detection, that product
+        stays at the top of your collection — customers keep clicking on something unavailable
+        and leaving. The longer the delay, the more revenue disappears silently.
+      </p>
+
+      <div class="problem__timeline" role="list" aria-label="Sort latency comparison">
+
+        <div class="timeline-item fade-up" role="listitem">
+          <div class="timeline-item__dot timeline-item__dot--bad" aria-hidden="true">⏰</div>
+          <div class="timeline-item__body">
+            <p class="timeline-item__time timeline-item__time--bad">10 min – 24 hours of exposure</p>
+            <p class="timeline-item__title">The batch delay problem</p>
+            <p class="timeline-item__desc">When inventory sorting runs on a fixed schedule, sold-out products stay visible at the top of your collections. Customers click through to items they cannot buy, and you have no way to know how long it has been happening.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-up" role="listitem">
+          <div class="timeline-item__dot timeline-item__dot--ok" aria-hidden="true">⚡</div>
+          <div class="timeline-item__body">
+            <p class="timeline-item__time timeline-item__time--ok">Under 90 seconds</p>
+            <p class="timeline-item__title">SortPilot — webhook event architecture</p>
+            <p class="timeline-item__desc">Shopify fires an inventory webhook the moment a variant hits zero. SortPilot catches it, evaluates your rules, and reorders the collection. No waiting for a scheduled run.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-up" role="listitem">
+          <div class="timeline-item__dot timeline-item__dot--good" aria-hidden="true">✓</div>
+          <div class="timeline-item__body">
+            <p class="timeline-item__time timeline-item__time--good">Every event · logged with proof</p>
+            <p class="timeline-item__title">Sync Transparency Log — timestamped, verifiable</p>
+            <p class="timeline-item__desc">A record of every sort event: what triggered it, what changed, how long it took. Never wonder if your sort app "did anything today" again.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── FEATURES ─────────────── -->
+  <section class="section section--alt" aria-labelledby="features-heading">
+    <div class="container">
+      <p class="section__label">How SortPilot works</p>
+      <h2 class="section__h2" id="features-heading">Built for merchants who need their collections to reflect reality — instantly</h2>
+      <p class="section__lead">SortPilot is built around three capabilities that give Shopify merchants genuine, verifiable control over how their collections perform.</p>
+
+      <div class="features__grid">
+
+        <article class="feature-card feature-card--accent fade-up">
+          <div class="feature-card__icon feature-card__icon--teal" aria-hidden="true">⚡</div>
+          <h3 class="feature-card__h3">Sub-90-second webhook sorting</h3>
+          <p class="feature-card__p">SortPilot listens to Shopify's inventory webhooks directly. The moment a variant hits zero, SortPilot catches the event, evaluates your rules, and reorders the collection — before your customer can click through twice.</p>
+          <span class="feature-card__badge badge--teal">Webhook-driven · Event-based</span>
+        </article>
+
+        <article class="feature-card feature-card--accent2 fade-up">
+          <div class="feature-card__icon feature-card__icon--orange" aria-hidden="true">🗂️</div>
+          <h3 class="feature-card__h3">True per-collection rule independence</h3>
+          <p class="feature-card__p">Each collection has its own completely independent rule set — different sort modes, signals, pins, and location assignments. Changing one collection has zero effect on any other. This is an architectural guarantee, not a UI toggle.</p>
+          <span class="feature-card__badge badge--orange">Architecturally guaranteed</span>
+        </article>
+
+        <article class="feature-card fade-up">
+          <div class="feature-card__icon feature-card__icon--navy" aria-hidden="true">📋</div>
+          <h3 class="feature-card__h3">Sync Transparency Log</h3>
+          <p class="feature-card__p">Every sort event is logged with a timestamp, the trigger, the position change, and the latency in milliseconds. "No change" events are logged too — so you can see the app evaluated and made a deliberate decision not to act.</p>
+          <span class="feature-card__badge badge--navy">Trust-building · Built-in</span>
+        </article>
+
+      </div>
+
+      <!-- LOG DEMO -->
+      <div class="log-demo fade-up" role="log" aria-label="Sample Sync Transparency Log output" aria-live="polite">
+        <div class="log-demo__header">
+          <div class="log-dot log-dot--red" aria-hidden="true"></div>
+          <div class="log-dot log-dot--yellow" aria-hidden="true"></div>
+          <div class="log-dot log-dot--green" aria-hidden="true"></div>
+          <span class="log-demo__title">Sync Transparency Log — Summer Collection</span>
+        </div>
+        <div class="log-row">
+          <span class="log-row__time">14:32:07</span>
+          <span class="log-row__event"><strong>Blue Denim Jacket (XL)</strong> — all sizes OOS → moved to position #38</span>
+          <span class="log-row__latency">847ms</span>
+          <span class="log-row__status status--ok">✓ Sorted</span>
+        </div>
+        <div class="log-row">
+          <span class="log-row__time">14:31:42</span>
+          <span class="log-row__event"><strong>White Canvas Tote</strong> — inventory change → position unchanged</span>
+          <span class="log-row__latency">312ms</span>
+          <span class="log-row__status status--skip">⤳ No change</span>
+        </div>
+        <div class="log-row">
+          <span class="log-row__time">14:29:15</span>
+          <span class="log-row__event"><strong>Red Linen Blazer (S,M)</strong> — restocked → returned to position #4</span>
+          <span class="log-row__latency">921ms</span>
+          <span class="log-row__status status--ok">✓ Sorted</span>
+        </div>
+        <div class="log-row">
+          <span class="log-row__time">14:28:03</span>
+          <span class="log-row__event"><strong>Striped Cotton Shirt</strong> — inventory change → position unchanged</span>
+          <span class="log-row__latency">276ms</span>
+          <span class="log-row__status status--skip">⤳ No change</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── WHO QUALIFIES ─────────────── -->
+  <section class="section qualify" aria-labelledby="qualify-heading">
+    <div class="container">
+      <p class="section__label">Who we're looking for</p>
+      <h2 class="section__h2" id="qualify-heading">The beta is selective — on purpose</h2>
+      <p class="section__lead">Useful beta feedback comes from stores where inventory actually changes. We qualify every applicant to make sure the fit is right for both of us.</p>
+
+      <div class="qualify__grid" role="list">
+        <div class="qualify-item qualify-item--yes" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✓</span>
+          <span class="qualify-item__text">200+ active products in your catalog</span>
+        </div>
+        <div class="qualify-item qualify-item--yes" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✓</span>
+          <span class="qualify-item__text">5+ collections you actively manage</span>
+        </div>
+        <div class="qualify-item qualify-item--yes" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✓</span>
+          <span class="qualify-item__text">Real inventory that changes regularly</span>
+        </div>
+        <div class="qualify-item qualify-item--yes" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✓</span>
+          <span class="qualify-item__text">Can commit to a 15-min call in week 1</span>
+        </div>
+        <div class="qualify-item qualify-item--no" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✗</span>
+          <span class="qualify-item__text">Dropshipping stores (inventory rarely changes organically)</span>
+        </div>
+        <div class="qualify-item qualify-item--no" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✗</span>
+          <span class="qualify-item__text">Dormant or test stores</span>
+        </div>
+        <div class="qualify-item qualify-item--no" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✗</span>
+          <span class="qualify-item__text">Under 100 products</span>
+        </div>
+        <div class="qualify-item qualify-item--no" role="listitem">
+          <span class="qualify-item__icon" aria-hidden="true">✗</span>
+          <span class="qualify-item__text">Non-English language stores (for now)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── THE DEAL ─────────────── -->
+  <section class="section section--alt" aria-labelledby="deal-heading">
+    <div class="container">
+      <p class="section__label">The beta arrangement</p>
+      <h2 class="section__h2" id="deal-heading">Honest trade — here's exactly what's involved</h2>
+      <p class="section__lead">No small print. This is the complete arrangement for the 20 beta merchants we bring on.</p>
+
+      <div class="deal__cols">
+
+        <div class="deal__col deal__col--get">
+          <div class="deal__col-header">
+            <div class="deal__col-icon deal__col-icon--get" aria-hidden="true">🎁</div>
+            <span class="deal__col-title">What you get</span>
+          </div>
+          <ul class="deal__list" aria-label="Beta tester benefits">
+            <li><span><strong>6 months free Pro access</strong> — $19/month value, completely free for your entire beta period.</span></li>
+            <li><span><strong>Shape the product</strong> — your feedback drives the roadmap before public launch.</span></li>
+            <li><span><strong>Direct access to the founder</strong> — private WhatsApp/Telegram group for instant support.</span></li>
+            <li><span><strong>Early adopter status</strong> — your name on the launch page (if you want it).</span></li>
+          </ul>
+        </div>
+
+        <div class="deal__col deal__col--give">
+          <div class="deal__col-header">
+            <div class="deal__col-icon deal__col-icon--give" aria-hidden="true">🤝</div>
+            <span class="deal__col-title">What we ask</span>
+          </div>
+          <ul class="deal__list" aria-label="Beta tester commitments">
+            <li><span>Use the app on a real collection with real inventory for <strong>4 weeks minimum</strong>.</span></li>
+            <li><span>Complete a <strong>5-question feedback form</strong> every week (takes 5 minutes).</span></li>
+            <li><span>Join <strong>one 15-minute video call</strong> within your first two weeks.</span></li>
+            <li><span>Leave an honest <strong>App Store review</strong> when we launch publicly.</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── SIGNUP FORM ─────────────── -->
+  <section class="form-section" id="signup" aria-labelledby="signup-heading">
+    <div class="container">
+      <p class="section__label">Apply for beta access</p>
+      <h2 class="section__h2" id="signup-heading">
+        20 spots. 6 months free Pro.<br/>Apply in 2 minutes.
+      </h2>
+      <p class="section__lead">We review every application and qualify based on store fit. You'll hear back within 3 business days.</p>
+
+      <div class="form-box">
+
+        <div class="form-box__spots">
+          <div class="form-box__spots-indicator" aria-hidden="true">
+            <!-- Filled dots = taken spots (update manually as spots fill) -->
+            <div class="spot-dot"></div>
+            <div class="spot-dot"></div>
+            <div class="spot-dot"></div>
+            <div class="spot-dot"></div>
+            <div class="spot-dot"></div>
+            <!-- Empty = remaining -->
+            <div class="spot-dot spot-dot--empty"></div>
+            <div class="spot-dot spot-dot--empty"></div>
+            <div class="spot-dot spot-dot--empty"></div>
+            <div class="spot-dot spot-dot--empty"></div>
+            <div class="spot-dot spot-dot--empty"></div>
+          </div>
+          15 of 20 spots remaining
+        </div>
+
+        <h3 class="form-box__title">Join the SortPilot beta</h3>
+        <p class="form-box__subtitle">We'll send a qualifying question after you apply — takes 30 seconds to answer.</p>
+
+        <!-- ============================================================
+             MAILCHIMP FORM
+             Replace these placeholders with your actual values:
+             ACTION_URL  → your Mailchimp form action URL
+                           (from Audience → Signup Forms → Embedded Forms → Action)
+                           Format: https://USERNAME.usX.list-manage.com/subscribe/post-json
+             U_VALUE     → the "u" parameter from your Mailchimp form action URL
+             ID_VALUE    → the "id" parameter from your Mailchimp form action URL
+
+             To find these: Mailchimp → Audience → Signup forms →
+             Embedded forms → Copy the action="" URL from the form HTML.
+             The JSONP version uses the same URL with "post-json" instead of "post".
+
+             CUSTOM MERGE FIELDS (already configured in your Mailchimp audience):
+             MMERGE3 → Email (old Carrd field — ignored by this form)
+             MMERGE4 → Store URL       (text field)
+             MMERGE5 → Product Count   (text field)
+             MMERGE6 → Current Sort App (text field)
+             MMERGE7 → Store Category  (text field)
+        ============================================================ -->
+
+        <form
+          id="mc-waitlist-form"
+          action="https://carrd.us6.list-manage.com/subscribe/post-json"
+          method="GET"
+          novalidate
+          aria-label="Beta waitlist signup form"
+        >
+          <!-- Hidden Mailchimp fields — replace u and id values -->
+          <input type="hidden" name="u" value="556c94ae6dbb7d68539497c01" />
+          <input type="hidden" name="id" value="a583e1892d" />
+
+          <!-- Required by Mailchimp JSONP -->
+          <input type="hidden" name="c" value="?" />
+
+          <!-- Honeypot anti-spam field (Mailchimp standard) -->
+          <div style="position:absolute;left:-5000px;" aria-hidden="true">
+            <input type="text" name="b_556c94ae6dbb7d68539497c01_a583e1892d" tabindex="-1" value="" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="mc-fname">First name <span aria-label="required">*</span></label>
+              <input
+                class="form-input"
+                type="text"
+                id="mc-fname"
+                name="FNAME"
+                placeholder="Alex"
+                required
+                autocomplete="given-name"
+                aria-required="true"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="mc-lname">Last name <span aria-label="required">*</span></label>
+              <input
+                class="form-input"
+                type="text"
+                id="mc-lname"
+                name="LNAME"
+                placeholder="Chen"
+                required
+                autocomplete="family-name"
+                aria-required="true"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="mc-email">Email address <span aria-label="required">*</span></label>
+            <input
+              class="form-input"
+              type="email"
+              id="mc-email"
+              name="EMAIL"
+              placeholder="you@yourstore.com"
+              required
+              autocomplete="email"
+              aria-required="true"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="mc-store">Your Shopify store URL <span aria-label="required">*</span></label>
+            <input
+              class="form-input"
+              type="url"
+              id="mc-store"
+              name="MMERGE4"
+              placeholder="yourstore.myshopify.com"
+              required
+              aria-required="true"
+              aria-describedby="store-hint"
+            />
+            <p class="form-hint" id="store-hint">Enter your .myshopify.com domain — we use this to verify store eligibility</p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="mc-products">Approx. product count <span aria-label="required">*</span></label>
+              <div class="form-select-wrap">
+                <select class="form-select" id="mc-products" name="MMERGE5" required aria-required="true">
+                  <option value="">Select range</option>
+                  <option value="200-499">200–499 products</option>
+                  <option value="500-999">500–999 products</option>
+                  <option value="1000-4999">1,000–4,999 products</option>
+                  <option value="5000+">5,000+ products</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="mc-category">Store category</label>
+              <div class="form-select-wrap">
+                <select class="form-select" id="mc-category" name="MMERGE7">
+                  <option value="">Select one</option>
+                  <option value="fashion">Fashion &amp; Apparel</option>
+                  <option value="homegoods">Home &amp; Garden</option>
+                  <option value="beauty">Beauty &amp; Health</option>
+                  <option value="sports">Sports &amp; Outdoors</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="food">Food &amp; Beverage</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="mc-currsort">Current sort app (if any)</label>
+            <input
+              class="form-input"
+              type="text"
+              id="mc-currsort"
+              name="MMERGE6"
+              placeholder="e.g. Kimonix, OT Collection Sort, or none"
+              aria-describedby="sort-hint"
+            />
+            <p class="form-hint" id="sort-hint">Helps us understand the switching context — no wrong answers</p>
+          </div>
+
+          <div class="form-checkbox-group">
+            <input
+              class="form-checkbox"
+              type="checkbox"
+              id="mc-commit"
+              required
+              aria-required="true"
+              aria-describedby="commit-label"
+            />
+            <label class="form-checkbox-label" id="commit-label" for="mc-commit">
+              I confirm my store has 200+ products with regularly changing inventory, and I can commit to a 15-minute feedback call in week 1.
+            </label>
+          </div>
+
+          <div class="form-checkbox-group">
+            <input
+              class="form-checkbox"
+              type="checkbox"
+              id="mc-terms"
+              required
+              aria-required="true"
+            />
+            <label class="form-checkbox-label" for="mc-terms">
+              I agree to receive emails from SortPilot about this beta program. I can unsubscribe at any time.
+            </label>
+          </div>
+
+          <button type="submit" class="form-submit" id="mc-submit-btn">
+            <div class="spinner" aria-hidden="true"></div>
+            <span class="submit-text">
+              Apply for beta access
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-left:6px">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+
+          <div class="form-message form-message--success" id="mc-success" role="status" aria-live="polite">
+            🎉 You're on the list! Check your inbox for a short qualifying question from Charles at Tech Fortress. Usually arrives within a few minutes.
+          </div>
+          <div class="form-message form-message--error" id="mc-error" role="alert" aria-live="assertive"></div>
+
+        </form>
+
+        <p class="form-privacy">
+          Your data is stored in Mailchimp and used only for SortPilot beta communications.
+          No spam. Unsubscribe anytime. Built by Tech Fortress Solutions.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p class="footer__logo">sort<span>Pilot</span></p>
+      <p class="footer__by">by Tech Fortress Solutions &nbsp;·&nbsp; Building in public since April 2026</p>
+      <nav class="footer__links" aria-label="Footer links">
+        <a href="mailto:hello@sortpilot.app">hello@sortpilot.app</a>
+        <a href="https://linkedin.com/in/charlesokechukwu" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="#signup">Apply for beta</a>
+      </nav>
+      <p class="footer__copy">&copy; 2026 Tech Fortress Solutions. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <!-- ─────────────── SCRIPTS ─────────────── -->
+  <script>
+    /* ── Intersection Observer: fade-up animations ── */
+    (function() {
+      const items = document.querySelectorAll('.fade-up');
+      if (!items.length) return;
+      const obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      items.forEach(function(el) { obs.observe(el); });
+    })();
+
+    /* ── MAILCHIMP JSONP SUBMISSION ── */
+    (function() {
+      var form   = document.getElementById('mc-waitlist-form');
+      var btn    = document.getElementById('mc-submit-btn');
+      var msgOk  = document.getElementById('mc-success');
+      var msgErr = document.getElementById('mc-error');
+
+      if (!form) return;
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        /* Client-side validation */
+        var email  = form.querySelector('#mc-email');
+        var store  = form.querySelector('#mc-store');
+        var prods  = form.querySelector('#mc-products');
+        var commit = form.querySelector('#mc-commit');
+        var terms  = form.querySelector('#mc-terms');
+        msgErr.style.display = 'none';
+
+        if (!email.value || !email.validity.valid) {
+          showError('Please enter a valid email address.');
+          email.focus(); return;
+        }
+        if (!store.value) {
+          showError('Please enter your Shopify store URL.');
+          store.focus(); return;
+        }
+        if (!prods.value) {
+          showError('Please select your approximate product count.');
+          prods.focus(); return;
+        }
+        if (!commit.checked) {
+          showError('Please confirm the commitment to give us useful feedback.');
+          commit.focus(); return;
+        }
+        if (!terms.checked) {
+          showError('Please agree to receive beta program emails.');
+          terms.focus(); return;
+        }
+
+        /* Build JSONP URL from form action + serialised fields */
+        var action = form.getAttribute('action');
+
+        /* Skip submission if placeholder hasn't been replaced */
+        if (action.indexOf('YOUR_USERNAME') !== -1) {
+          showError(
+            '⚙️ Mailchimp is not configured yet. Please replace the placeholder values in the form action, u, and id fields with your actual Mailchimp credentials. See the HTML comments above the form for instructions.'
+          );
+          return;
+        }
+
+        var params = new URLSearchParams();
+        var fields = form.elements;
+        for (var i = 0; i < fields.length; i++) {
+          var f = fields[i];
+          if (f.name && f.name !== 'c' && f.type !== 'checkbox' && f.type !== 'submit') {
+            params.append(f.name, f.value);
+          }
+        }
+        params.set('c', 'mcCallback_' + Date.now());
+
+        var callbackName = params.get('c');
+        var url = action + '?' + params.toString();
+
+        /* Set loading state */
+        btn.classList.add('loading');
+        btn.disabled = true;
+
+        /* JSONP callback */
+        window[callbackName] = function(data) {
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          delete window[callbackName];
+          if (script && script.parentNode) script.parentNode.removeChild(script);
+
+          if (data.result === 'success') {
+            form.style.display = 'none';
+            msgOk.style.display = 'block';
+          } else {
+            var msg = data.msg || 'Something went wrong. Please try again.';
+            /* Strip HTML Mailchimp sometimes returns */
+            msg = msg.replace(/<[^>]+>/g, '');
+            /* Make "already subscribed" friendlier */
+            if (msg.toLowerCase().indexOf('already subscribed') !== -1) {
+              msg = "You're already on our list! Keep an eye on your inbox — we'll be in touch soon.";
+              form.style.display = 'none';
+              msgOk.style.display = 'block';
+              msgOk.textContent = '👋 ' + msg;
+              return;
+            }
+            showError(msg);
+          }
+        };
+
+        /* Inject JSONP script */
+        var script = document.createElement('script');
+        script.src = url;
+
+        /* Timeout fallback */
+        var timeout = setTimeout(function() {
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          delete window[callbackName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+          showError('The request timed out. Please check your connection and try again.');
+        }, 10000);
+
+        script.onload = function() { clearTimeout(timeout); };
+        document.body.appendChild(script);
+      });
+
+      function showError(msg) {
+        msgErr.textContent = msg;
+        msgErr.style.display = 'block';
+        msgErr.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    })();
+  </script>
+
+</body>
+</html>
