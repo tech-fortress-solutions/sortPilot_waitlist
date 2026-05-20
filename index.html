@@ -856,10 +856,10 @@
           MMERGE6 = Current Sort App, MMERGE7 = Store Category.
 
           NEW FIELD ADDED:
-          MMERGE8 = Biggest Collection Sorting Problem
+          MMERGE3 = Biggest Collection Sorting Problem
 
-          Before deploying, create a text/dropdown merge field in Mailchimp with tag MMERGE8,
-          or change the name="MMERGE8" below to whatever merge tag you create.
+          Mailchimp assigned this field the merge tag MMERGE3, so the form field below
+          must use name="MMERGE3" for submissions to save correctly.
         -->
         <form
           id="mc-waitlist-form"
@@ -929,7 +929,7 @@
 
           <div class="form-group">
             <label class="form-label" for="mc-problem">Biggest collection sorting problem right now <span>*</span></label>
-            <select class="form-select" id="mc-problem" name="MMERGE8" required>
+            <select class="form-select" id="mc-problem" name="MMERGE3" required>
               <option value="">Select the closest problem</option>
               <option value="Sold-out products appear too high">Sold-out products appear too high</option>
               <option value="New arrivals get buried">New arrivals get buried</option>
@@ -938,6 +938,7 @@
               <option value="Need different rules per collection">Need different rules per collection</option>
               <option value="Agency evaluating for clients">Agency evaluating for clients</option>
               <option value="Not sure yet">Not sure yet</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
